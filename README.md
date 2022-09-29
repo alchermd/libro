@@ -5,5 +5,7 @@ A library management system built with Go.
 ## Setup
 
 ```console
-$ go run ./cmd/web
+$ createdb libro
+$ psql libro < tables.sql
+$ go run ./cmd/web --dbName libro --dbHost localhost --dbPort 5432 --dbUser libro_user --dbPassword libro_password 
 ```
