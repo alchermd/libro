@@ -18,7 +18,7 @@ type application struct {
 	infoLog       *log.Logger
 	errorLog      *log.Logger
 	templateCache map[string]*template.Template
-	genres        psql.GenreModel
+	books         psql.BookModel
 }
 
 func main() {
@@ -56,7 +56,7 @@ func main() {
 		infoLog:       infoLog,
 		errorLog:      errorLog,
 		templateCache: templateCache,
-		genres:        psql.GenreModel{DB: db},
+		books:         psql.BookModel{DB: db},
 	}
 
 	svr := &http.Server{
