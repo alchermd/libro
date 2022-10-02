@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 
+	"github.com/gorilla/csrf"
 	"github.com/gorilla/mux"
 	"github.com/justinas/alice"
 )
@@ -15,10 +16,11 @@ func (app *application) routes() http.Handler {
 	// Create a new servemux and apply handler mappings.
 	mux := mux.NewRouter()
 	mux.HandleFunc("/", app.home).Methods("GET")
+	mux.HandleFunc("/books/create", app.createBookForm).Methods("GET")
 
 	// Serve static assets.
 	fileServer := http.FileServer(http.Dir("./ui/static/"))
 	mux.PathPrefix("/static/").Handler(http.StripPrefix("/static", fileServer))
 
-	return standardMiddleware.Then(mux)
+	return csrf.Protect([]byte("32-byte-long-auth-key"))(standardMiddleware.Then(mux))
 }

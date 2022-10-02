@@ -1,13 +1,19 @@
 package main
 
 import (
+	"html/template"
 	"net/http"
 	"path/filepath"
-	"text/template"
+
+	"github.com/alchermd/aklatan/internals/models/forms"
+	"github.com/gorilla/csrf"
 )
 
 // Holds the data that is passed and accessed by the HTML templates.
-type templateData struct{}
+type templateData struct {
+	CSRFTemplateTag template.HTML
+	Form            *forms.Form
+}
 
 // Setup a new template cache.
 func newTemplateCache(dir string) (map[string]*template.Template, error) {
@@ -49,6 +55,8 @@ func (app *application) addDefaultData(td *templateData, w http.ResponseWriter, 
 	if td == nil {
 		td = &templateData{}
 	}
+
+	td.CSRFTemplateTag = csrf.TemplateField(r)
 
 	return td
 }

@@ -26,11 +26,15 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 		},
 	)
 
-	// title, description, coverPhotoURL, author string, publishedAt time.Time, pages int, genres []string
 	if err != nil {
 		app.serverError(w, err)
 	}
 	app.infoLog.Printf("Inserted book ID: %d", id)
 
 	app.render(w, r, "home.page.html", nil)
+}
+
+// Displays the book creation form.
+func (app *application) createBookForm(w http.ResponseWriter, r *http.Request) {
+	app.render(w, r, "create-book.page.html", nil)
 }

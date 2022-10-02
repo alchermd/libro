@@ -1,0 +1,57 @@
+{{template "base" .}}
+
+{{define "title"}}Add a Book{{end}}
+
+{{define "main"}}
+<h1>Add a Book</h1>
+<div class="container text-start">
+    <form action="/books/create" method="POST">
+        {{.CSRFTemplateTag}}
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea name="description" id="description" class="form-control" rows="10"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="cover_photo_url" class="form-label">Cover Photo</label>
+            <input class="form-control" type="file" id="cover_photo_url" accept="image/*">
+        </div>
+
+        <div class="mb-3">
+            <label for="author" class="form-label">Author</label>
+            <input type="text" class="form-control" id="author">
+        </div>
+
+        <div class="mb-3">
+            <div class="row">
+                <div class="col">
+                    <label for="published" class="form-label">Published</label>
+                    <input type="date" class="form-control" id="published">
+                </div>
+                <div class="col">
+                    <label for="pages" class="form-label">Pages</label>
+                    <input type="number" class="form-control" id="pages" min="1" oninput="validity.valid||(value='');">
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="genres" class="form-label">
+                Genres
+                <i class="bi bi-question-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-custom-class="custom-tooltip"
+                    data-bs-title="Separate the genres with a comma (ex: Tecnology, Science Fiction, Romance)"></i>
+            </label>
+            <input type="text" class="form-control" id="genres">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+{{end}}
